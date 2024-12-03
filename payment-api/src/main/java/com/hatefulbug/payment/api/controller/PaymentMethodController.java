@@ -19,7 +19,7 @@ public class PaymentMethodController {
 
     private final PaymentMethodService paymentMethodService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<ApiResponse> getPaymentMethods() {
         List<PaymentMethod> paymentMethods = paymentMethodService.getPaymentMethods();
         return new ResponseEntity<>(new ApiResponse(paymentMethods, "Payment methods successfully obtained"), HttpStatus.OK);

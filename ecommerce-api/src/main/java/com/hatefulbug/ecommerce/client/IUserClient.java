@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "user", url = "http://localhost:8090", path = "/api/v1/users")
+@FeignClient(value = "user", url = "http://localhost:8090", path = "/api/v1/payment/users")
 public interface IUserClient {
 
     @RequestMapping(method = RequestMethod.POST,value = "/create")

@@ -24,6 +24,7 @@
 	<modules>
 		<module>ecommerce-api</module>
 		<module>payment-api</module>
+		<module>api-gateway</module>
 	</modules>
 
 </project>
