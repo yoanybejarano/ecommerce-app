@@ -1,0 +1,31 @@
+services:
+  paymentDBConn:
+    image: mysql
+    container_name: PaymentDBConn
+    environment:
+      MYSQL_ROOT_PASSWORD: Orwell1984
+      MYSQL_DATABASE: payment-db
+      MYSQL_USER: orwell
+      MYSQL_PASSWORD: orwell1984
+    ports:
+      - "3307:3306"
+    expose:
+      - 3307
+    volumes:
+      #- ./mysql:/var/lib/mysql
+      - ./docker/mysql/payment-db-init.sql:/docker-entrypoint-initdb.d/payment-db-init.sql
+  ecommerceDBConn:
+    image: mysql
+    container_name: EcommerceDBConn
+    environment:
+      MYSQL_ROOT_PASSWORD: Verne1828
+      MYSQL_DATABASE: ecommerce-db
+      MYSQL_USER: verne
+      MYSQL_PASSWORD: verne1828
+    ports:
+      - "3308:3306"
+    expose:
+      - 3308
+    volumes:
+      #- ./mysql:/var/lib/mysql
+      - ./docker/mysql/ecommerce-db-init.sql:/docker-entrypoint-initdb.d/ecommerce-db-init.sql

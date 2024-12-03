@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: payment-api
+  datasource:
+    url: jdbc:mysql://localhost:3307/payment-db
+    username: orwell
+    password: orwell1984
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+server:
+  port: 8090
+  servlet:
+    context-path: /api/v1
