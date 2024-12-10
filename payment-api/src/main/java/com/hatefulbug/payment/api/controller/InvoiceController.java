@@ -6,6 +6,7 @@ import com.hatefulbug.payment.api.request.PartialInvoice;
 import com.hatefulbug.payment.api.request.PartialInvoiceUpdate;
 import com.hatefulbug.payment.api.request.RangeDateRequest;
 import com.hatefulbug.payment.api.service.InvoiceService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/invoices")
 @RequiredArgsConstructor
+@Tag(name="Invoice")
 public class InvoiceController {
     private final InvoiceService invoiceService;
 

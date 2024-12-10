@@ -4,6 +4,7 @@ import com.hatefulbug.payment.api.model.AuditLog;
 import com.hatefulbug.payment.api.reponse.ApiResponse;
 import com.hatefulbug.payment.api.request.RangeDateRequest;
 import com.hatefulbug.payment.api.service.AuditLogService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/logs")
 @RequiredArgsConstructor
+@Tag(name="AuditLogs")
 public class LogController {
     private final AuditLogService logService;
 

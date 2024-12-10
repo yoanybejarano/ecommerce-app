@@ -4,6 +4,7 @@ import com.hatefulbug.payment.api.model.User;
 import com.hatefulbug.payment.api.reponse.ApiResponse;
 import com.hatefulbug.payment.api.request.PartialUser;
 import com.hatefulbug.payment.api.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Tag(name="User")
 public class UserController {
     private final UserService userService;
 

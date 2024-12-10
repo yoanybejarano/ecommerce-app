@@ -5,6 +5,7 @@ import com.hatefulbug.ecommerce.response.ApiResponse;
 import com.hatefulbug.ecommerce.response.JwtResponse;
 import com.hatefulbug.ecommerce.security.jwt.JwtUtils;
 import com.hatefulbug.ecommerce.security.user.AppUserDetails;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
+@Tag(name="Auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;

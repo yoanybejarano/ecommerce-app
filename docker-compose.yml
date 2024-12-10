@@ -1,5 +1,5 @@
 services:
-  paymentDBConn:
+  payment-db-mysql:
     image: mysql
     container_name: PaymentDBConn
     environment:
@@ -14,7 +14,7 @@ services:
     volumes:
       #- ./mysql:/var/lib/mysql
       - ./docker/mysql/payment-db-init.sql:/docker-entrypoint-initdb.d/payment-db-init.sql
-  ecommerceDBConn:
+  ecommerce-db-mysql:
     image: mysql
     container_name: EcommerceDBConn
     environment:
@@ -29,3 +29,37 @@ services:
     volumes:
       #- ./mysql:/var/lib/mysql
       - ./docker/mysql/ecommerce-db-init.sql:/docker-entrypoint-initdb.d/ecommerce-db-init.sql
+  keycloak-mysql:
+    container_name: keycloak-mysql
+    image: mysql:8
+    volumes:
+      - ./volume-data/mysql_keycloak_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Lovecraft1988
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: lovecraft1988
+    ports:
+      - "3309:3306"
+    expose:
+      - 3309
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:26.0.7
+    command: [ "start-dev", "--import-realm" ]
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql
+      DB_PORT: 3309
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: lovecraft1988
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      #KEYCLOAK_IMPORT: /opt/jboss/keycloak/imports/realm-export.json -Dkeycloak.profile.feature.upload_scripts=enabled
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+    depends_on:
+      - keycloak-mysql

@@ -3,6 +3,7 @@ package com.hatefulbug.payment.api.controller;
 import com.hatefulbug.payment.api.model.PaymentMethod;
 import com.hatefulbug.payment.api.reponse.ApiResponse;
 import com.hatefulbug.payment.api.service.PaymentMethodService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/paymentMethods")
 @RequiredArgsConstructor
+@Tag(name="PaymentMethod")
 public class PaymentMethodController {
 
     private final PaymentMethodService paymentMethodService;

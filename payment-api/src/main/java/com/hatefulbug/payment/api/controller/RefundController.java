@@ -4,6 +4,7 @@ import com.hatefulbug.payment.api.model.Refund;
 import com.hatefulbug.payment.api.reponse.ApiResponse;
 import com.hatefulbug.payment.api.request.PartialRefund;
 import com.hatefulbug.payment.api.service.RefundService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/refunds")
 @RequiredArgsConstructor
+@Tag(name="Refund")
 public class RefundController {
     private final RefundService refundService;
 

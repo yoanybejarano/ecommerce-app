@@ -1,4 +1,4 @@
-package com.hatefulbug.ecommerce.openapi;
+package com.hatefulbug.payment.api.openapi;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -15,7 +15,7 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .servers(List.of(new Server().url("http://localhost:8091")))
+                .servers(List.of(new Server().url("http://localhost:8090")))
                 .info(new Info()
                         .title("Payment Service API")
                         .description("Payment Service API Specs")
