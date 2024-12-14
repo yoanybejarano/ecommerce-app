@@ -6,10 +6,8 @@ import com.hatefulbug.payment.api.model.Payment;
 import com.hatefulbug.payment.api.model.PaymentMethod;
 import com.hatefulbug.payment.api.model.User;
 import com.hatefulbug.payment.api.repository.PaymentRepository;
-import com.hatefulbug.payment.api.request.PartialAuditLog;
 import com.hatefulbug.payment.api.request.PartialPayment;
 import com.hatefulbug.payment.api.request.RangeDateRequest;
-import com.hatefulbug.payment.api.service.AuditLogService;
 import com.hatefulbug.payment.api.service.PaymentMethodService;
 import com.hatefulbug.payment.api.service.PaymentService;
 import com.hatefulbug.payment.api.service.UserService;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,7 +27,6 @@ public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final UserService userService;
     private final PaymentMethodService paymentMethodService;
-    private final AuditLogService logService;
 
     @Transactional
     @Override
@@ -48,12 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.setPaymentStatus(PaymentStatus.Pending);
                 payment.setPaymentDate(Instant.now());
                 payment.setTransactionID(transactionId);
-                Payment result = paymentRepository.save(payment);
-                logService.createAuditLog(PartialAuditLog.builder()
-                        .userId(result.getUser().getId())
-                        .action("Transaction Created")
-                        .details(String.format("Transaction %s created successfully.", transactionId)).build());
-                return result;
+                return paymentRepository.save(payment);
             }
             return null;
         } catch (RuntimeException e) {
@@ -68,12 +59,7 @@ public class PaymentServiceImpl implements PaymentService {
             Payment payment = getPaymentById(id);
             if (payment != null && !Objects.equals(payment.getPaymentStatus().toString(), status)) {
                 payment.setPaymentStatus(PaymentStatus.valueOf(status));
-                Payment result = paymentRepository.save(payment);
-                logService.createAuditLog(PartialAuditLog.builder()
-                        .userId(result.getUser().getId())
-                        .action("Transaction Status Updated")
-                        .details(String.format("Transaction %s status updated successfully.", result.getTransactionID())).build());
-                return result;
+                return paymentRepository.save(payment);
             }
             return null;
         } catch (IllegalArgumentException e) {

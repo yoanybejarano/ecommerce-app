@@ -1,6 +1,5 @@
 package com.hatefulbug.payment.api.service;
 
-import com.hatefulbug.payment.api.enums.RefundStatus;
 import com.hatefulbug.payment.api.model.Refund;
 import com.hatefulbug.payment.api.request.PartialRefund;
 

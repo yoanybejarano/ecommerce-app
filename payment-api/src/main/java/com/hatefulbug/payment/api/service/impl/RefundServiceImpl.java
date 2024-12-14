@@ -4,9 +4,7 @@ import com.hatefulbug.payment.api.enums.RefundStatus;
 import com.hatefulbug.payment.api.model.Payment;
 import com.hatefulbug.payment.api.model.Refund;
 import com.hatefulbug.payment.api.repository.RefundRepository;
-import com.hatefulbug.payment.api.request.PartialAuditLog;
 import com.hatefulbug.payment.api.request.PartialRefund;
-import com.hatefulbug.payment.api.service.AuditLogService;
 import com.hatefulbug.payment.api.service.PaymentService;
 import com.hatefulbug.payment.api.service.RefundService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +20,6 @@ public class RefundServiceImpl implements RefundService {
 
     private final RefundRepository refundRepository;
     private final PaymentService paymentService;
-    private final AuditLogService logService;
 
     @Transactional
     @Override
@@ -36,12 +33,7 @@ public class RefundServiceImpl implements RefundService {
                 newRefund.setRefundReason(partialRefund.getRefundReason());
                 newRefund.setRefundStatus(RefundStatus.valueOf(partialRefund.getRefundStatus()));
                 newRefund.setRefundDate(Instant.now());
-                Refund refund = refundRepository.save(newRefund);
-                logService.createAuditLog(PartialAuditLog.builder()
-                        .userId(payment.getUser().getId())
-                        .action("Refund Created")
-                        .details(String.format("Refund %s created successfully.", refund.getId())).build());
-                return refund;
+                return refundRepository.save(newRefund);
             }
             return null;
         } catch (IllegalArgumentException e) {
@@ -61,12 +53,7 @@ public class RefundServiceImpl implements RefundService {
             Refund refund = getRefund(refundId);
             if (refund != null) {
                 refund.setRefundStatus(RefundStatus.valueOf(refundStatus));
-                Refund updatedRefund = refundRepository.save(refund);
-                logService.createAuditLog(PartialAuditLog.builder()
-                        .userId(updatedRefund.getPayment().getUser().getId())
-                        .action("Refund Status Updated")
-                        .details(String.format("Refund %s status updated successfully.", updatedRefund.getId())).build());
-                return refund;
+                return refundRepository.save(refund);
             }
             return null;
         } catch (Exception e) {

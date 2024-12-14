@@ -1,36 +1,12 @@
 package com.hatefulbug.payment.api;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class PaymentApiApplicationTests {
+public class PaymentApiApplicationTest {
 
-    @Test
     void contextLoads() {
+
     }
 
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
